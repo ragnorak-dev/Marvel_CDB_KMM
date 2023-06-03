@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization") version "1.8.21"
     id("com.android.library")
 }
 
@@ -26,9 +27,20 @@ kotlin {
     }
 
     sourceSets {
+
+        val ktorVersion = "2.3.0"
+        val coroutinesVersion = "1.7.1"
+        val koinVersion = "3.2.0"
+
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation("io.ktor:ktor-serialization:$ktorVersion")
+                api("io.insert-koin:koin-core:$koinVersion")
+                api("io.insert-koin:koin-test:$koinVersion")
             }
         }
         val commonTest by getting {
@@ -36,6 +48,23 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
+
+        val androidMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+
+            }
+        }
+
+        /*val iosMain by creating {
+            dependsOn(commonMain)
+           // iosX64Main.dependsOn(this)
+            // iosArm64Main.dependsOn(this)
+           //  iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
+        }*/
     }
 }
 

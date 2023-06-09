@@ -1,12 +1,8 @@
 package com.ragnorak.marvelcdb
 
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
-import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmName
 
-@JvmInline
-value class ResultData<out T> internal constructor(
+class ResultData<out T> internal constructor(
     @PublishedApi internal val value: Any?
 ) {
 

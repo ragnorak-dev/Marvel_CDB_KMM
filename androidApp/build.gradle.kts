@@ -36,6 +36,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildToolsVersion = "33.0.2"
 }
 
 val koinVersion = "3.2.0"

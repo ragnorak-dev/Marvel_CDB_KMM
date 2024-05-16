@@ -8,10 +8,5 @@ import kotlinx.serialization.json.Json
 internal class MarvelCardsDataSource(private val apiFactory: APIFactory) {
     private val endpoint = "cards/?_format=json"
     suspend fun getMarvelCardList(): Result<List<MarvelCardResponse>> =
-        apiFactory.createApi(endpoint).map {
-
-            Json{ ignoreUnknownKeys = true }
-                .decodeFromString(it)
-
-        }
+        apiFactory.createApi<List<MarvelCardResponse>>(endpoint)
 }

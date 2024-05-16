@@ -1,6 +1,4 @@
-package com.ragnorak.marvelcdb.android.ui
-
-import com.ragnorak.marvelcdb.ResultData
+package com.ragnorak.marvelcdb.ui
 
 sealed class ViewState <out T> {
 

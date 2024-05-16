@@ -1,4 +1,4 @@
-package com.ragnorak.marvelcdb.android.ui
+package com.ragnorak.marvelcdb.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.ragnorak.marvelcdb.domain.models.MarvelCardModel

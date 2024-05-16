@@ -7,9 +7,9 @@
         android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.ragnorak.marvelcdb.android.MainApplication">
+        android:name="com.ragnorak.marvelcdb.MainApplication">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.ragnorak.marvelcdb.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

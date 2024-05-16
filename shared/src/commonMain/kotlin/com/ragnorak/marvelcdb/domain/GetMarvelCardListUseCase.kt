@@ -10,7 +10,6 @@ class GetMarvelCardListUseCase(private val marvelCardRepository: MarvelCardRepos
     suspend fun execute(): ResultData<List<MarvelCardModel>> {
         val result = marvelCardRepository.getMarvelCardList()
 
-        result.onSuccess {  }
         return result.fold(
             onSuccess = { ResultData.success(it.map { it.toModel() }) },
             onFailure = { ResultData.failure(it) })

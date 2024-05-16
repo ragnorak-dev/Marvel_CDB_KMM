@@ -1,4 +1,4 @@
-package com.ragnorak.marvelcdb.android.ui
+package com.ragnorak.marvelcdb.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

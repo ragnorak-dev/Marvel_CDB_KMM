@@ -6,40 +6,34 @@ import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.request.header
-import io.ktor.client.statement.bodyAsText
-import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
-import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-internal class APIFactory {
+internal class ApiClient {
 
     private val BASE_URL = "$HOST_URL/api/public/"
-    private val httpClient = HttpClient(){
+    private val httpClient = HttpClient{
         install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true
                 isLenient = true
                 ignoreUnknownKeys = true
             })
-
-            // Example: Register JSON content transformation
-            // Add more transformations as needed for other content types
         }
     }
 
-    suspend inline fun <reified T> createApi(url: String): Result<T> {
-        try {
-            return Result.success(
+    suspend inline fun <reified T> getApiCall(url: String): Result<T> {
+        return try {
+            Result.success(
                 httpClient
                     .get(BASE_URL.plus(url)){
                         this.header(HttpHeaders.ContentType, "application/json")
                         this.header(HttpHeaders.Accept, "application/json")
                     }
-                .body<T>())
+                    .body<T>())
         } catch (exception: Throwable) {
-            return Result.failure(exception)
+            Result.failure(exception)
         }
     }
 }

@@ -69,8 +69,8 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = libs.versions.java
+        targetCompatibility = libs.versions.java
     }
     buildToolsVersion = libs.versions.android.buildTool.get()
 }

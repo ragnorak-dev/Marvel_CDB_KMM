@@ -14,55 +14,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.ragnorak.components.LoadingComponent
 import com.ragnorak.marvelcdb.domain.models.MarvelCardModel
+import com.ragnorak.marvelcdb.ui.theme.AppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
-    val marvelListViewModel: MarvelCardListViewModel by viewModel()
+    private val marvelListViewModel: MarvelCardListViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
+            AppTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    val marvelCardListState =
-                        marvelListViewModel.marvelCardList.collectAsState()
-
-                    when(marvelCardListState.value) {
-                        ViewState.Idle -> {
-                            marvelListViewModel.getMarvelCardList()
-                        }
-                        ViewState.Loading -> {
-                            Box(modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center){
-                                Text(text = "CARGANDO...")
-                            }
-                        }
-                        is ViewState.Success -> {
-                            val scrollBehavior =  rememberScrollState()
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .verticalScroll(scrollBehavior)) {
-                                (marvelCardListState.value as ViewState.Success<List<MarvelCardModel>>)
-                                    .data.forEach {
-                                        Text(text = it.name)
-                                }
-                            }
-                        }
-                        is ViewState.Error -> {
-                            Box(modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center){
-                                Text(text = (marvelCardListState.value as ViewState.Error).errorMessage)
-                            }
-                        }
-                    }
-                   Column {
-
-                   }
+                    MarvelApp(marvelListViewModel)
                 }
             }
         }

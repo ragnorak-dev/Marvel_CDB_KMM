@@ -1,5 +1,6 @@
 package com.ragnorak.marvelcdb.data.network
 
+import com.ragnorak.marvelcdb.HOST_URL
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -14,7 +15,7 @@ import kotlinx.serialization.json.Json
 
 internal class APIFactory {
 
-    private val BASE_URL = "https://marvelcdb.com/api/public/"
+    private val BASE_URL = "$HOST_URL/api/public/"
     private val httpClient = HttpClient(){
         install(ContentNegotiation) {
             json(Json {

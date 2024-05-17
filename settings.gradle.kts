@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Marvel_CDB_Multiplatform"
 include(":androidApp")
 include(":shared")
+include(":components")

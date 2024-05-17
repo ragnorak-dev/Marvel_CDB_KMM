@@ -11,17 +11,17 @@ data class MarvelCardResponse(
     val typeCode: String = "",
     @SerialName("faction_code")
     val factionCode: String = "",
-    @SerialName("card_set_code")
-    val cardSetCode: String = "",
-    @SerialName("linked_to_code")
-    val linkedCode: String = "",
     val position: Int = 0,
     val code: String = "",
     val name: String = "",
+    val subname: String = "",
     val text: String = "",
     val health: Int = 0,
     val thwart: Int = 0,
     val attack: Int = 0,
     val defense: Int = 0,
+    val cost: Int = 0,
+    val quantity: Int = 0,
     val traits: String = "",
+    val imagesrc: String = "",
 )

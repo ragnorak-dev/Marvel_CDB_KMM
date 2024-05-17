@@ -21,13 +21,14 @@ class MarvelCardListViewModel(
         _marvelCardList.value = ViewState.Loading
 
         viewModelScope.launch {
-            marvelCardListUseCase.execute()
-                .onSuccess {
-                    _marvelCardList.value = ViewState.Success(it)
-                }
+            marvelCardListUseCase()
                 .onFailure {
                     _marvelCardList.value = ViewState.Error(it.message ?: "ERROR")
                 }
+                .onSuccess {
+                    _marvelCardList.value = ViewState.Success(it)
+                }
+
         }
     }
 }

@@ -1,7 +1,8 @@
 plugins {
-    kotlin("multiplatform")
     kotlin("plugin.serialization") version "1.9.24"
-    id("com.android.library")
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsCompose)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -53,6 +54,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("androidx.compose.runtime:runtime:1.6.7")
             }
         }
 

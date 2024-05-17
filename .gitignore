@@ -2,7 +2,7 @@
 .gradle
 .idea
 build
-/gradle
+/gradle/wrapper
 
 .DS_Store
 .AppleDouble

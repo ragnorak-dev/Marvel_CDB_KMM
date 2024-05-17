@@ -7,7 +7,7 @@ import com.ragnorak.marvelcdb.domain.models.mappers.toModel
 
 class GetMarvelCardListUseCase(private val marvelCardRepository: MarvelCardRepository) {
 
-    suspend fun execute(): ResultData<List<MarvelCardModel>> {
+    suspend operator fun invoke(): ResultData<List<MarvelCardModel>> {
         val result = marvelCardRepository.getMarvelCardList()
 
         return result.fold(

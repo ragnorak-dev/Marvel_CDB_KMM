@@ -5,6 +5,7 @@ import kotlin.jvm.JvmName
 class ResultData<out T> internal constructor(
     @PublishedApi internal val value: Any?
 ) {
+    public val isSuccess: Boolean get() = value !is Failure
 
     companion object {
         /**
@@ -35,7 +36,7 @@ class ResultData<out T> internal constructor(
 
 
 fun <T> ResultData<T>.onSuccess(action: (value: T) -> Unit): ResultData<T> {
-    action(value as T)
+    if (isSuccess) action(value as T)
     return this
 }
 

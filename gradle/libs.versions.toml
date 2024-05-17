@@ -27,6 +27,8 @@ foundationCompose = "1.7.0-beta01"
 lifecycleViewModelCompose = "2.8.0"
 coroutines = "1.8.1"
 ktor = "2.3.11"
+junitJupiter = "5.8.1"
+mock = "1.9.23-1.7.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -61,6 +63,7 @@ ktor-client-okhttp = {module = "io.ktor:ktor-client-okhttp", version.ref = "ktor
 ktor-client-darwin = {module = "io.ktor:ktor-client-darwin", version.ref = "ktor"}
 ktor-serialization-json = {module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor"}
 ktor-serialization = {module = "io.ktor:ktor-serialization", version.ref = "ktor"}
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
 
 
 [plugins]
@@ -70,3 +73,4 @@ android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+mocking = { id = "dev.mokkery", version.ref = "mock" }

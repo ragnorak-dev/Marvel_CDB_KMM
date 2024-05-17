@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.android) apply false
+    alias(libs.plugins.mocking) apply false
 }
 
 tasks.register("clean", Delete::class) {

@@ -34,11 +34,11 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler
+        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.get()
     }
 
     kotlinOptions {
-        jvmTarget = libs.versions.java
+        jvmTarget = libs.versions.java.get()
     }
 }
 

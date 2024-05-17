@@ -36,12 +36,12 @@ android {
         targetCompatibility = libs.versions.java
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler
+        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.get()
     }
     kotlinOptions {
-        jvmTarget = libs.versions.java
+        jvmTarget = libs.versions.java.get()
     }
-    buildToolsVersion = libs.versions.android.buildTool
+    buildToolsVersion = libs.versions.android.buildTool.get()
 }
 
 dependencies {

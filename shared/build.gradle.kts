@@ -12,7 +12,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = libs.versions.java
+                jvmTarget = libs.versions.java.get()
             }
         }
     }
@@ -72,5 +72,5 @@ android {
         sourceCompatibility = libs.versions.java
         targetCompatibility = libs.versions.java
     }
-    buildToolsVersion = libs.versions.android.buildTool
+    buildToolsVersion = libs.versions.android.buildTool.get()
 }

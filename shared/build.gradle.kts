@@ -1,5 +1,5 @@
 plugins {
-    kotlin("plugin.serialization") version "1.9.24"
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
@@ -12,7 +12,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "17"
+                jvmTarget = libs.versions.java
             }
         }
     }
@@ -29,20 +29,16 @@ kotlin {
 
     sourceSets {
 
-        val ktorVersion = "2.3.11"
-        val coroutinesVersion = "1.8.1"
-        val koinVersion = "3.5.0"
-
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("io.ktor:ktor-serialization:$ktorVersion")
-                api(project.dependencies.platform("io.insert-koin:koin-bom:$koinVersion"))
-                api("io.insert-koin:koin-core")
-                api("io.insert-koin:koin-test")
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.contentNegotiation)
+                implementation(libs.ktor.serialization.json)
+                implementation(libs.ktor.serialization)
+                api(project.dependencies.platform(libs.koin.bom))
+                api(libs.koin.core)
+                api(libs.koin.test)
             }
         }
         val commonTest by getting {
@@ -53,14 +49,14 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-                implementation("androidx.compose.runtime:runtime:1.6.7")
+                implementation(libs.ktor.client.okhttp)
+                implementation(libs.compose.runtime)
             }
         }
 
         val iosMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation(libs.ktor.client.darwin)
             }
         }
     }
@@ -68,13 +64,13 @@ kotlin {
 
 android {
     namespace = "com.ragnorak.marvelcdb"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 28
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = libs.versions.java
+        targetCompatibility = libs.versions.java
     }
-    buildToolsVersion = "34.0.0"
+    buildToolsVersion = libs.versions.android.buildTool
 }

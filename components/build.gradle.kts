@@ -1,15 +1,15 @@
 plugins {
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
 }
 
 android {
     namespace = "com.ragnorak.components"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 28
+        minSdk = libs.versions.android.minSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -29,36 +29,37 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = libs.versions.java
+        targetCompatibility = libs.versions.java
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
+        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler
     }
 
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = libs.versions.java
     }
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.12.0")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.appcompat)
 
-    val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
+    // compose
+    val composeBom = platform(libs.compose.bom)
     implementation (composeBom)
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
+    androidTestImplementation (composeBom)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.navigation)
     implementation(libs.compose.ui)
     implementation(libs.compose.animation)
     implementation(libs.compose.foundation)
     implementation(libs.image.coil)
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }

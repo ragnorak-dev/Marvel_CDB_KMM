@@ -10,10 +10,10 @@ import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-internal class ApiClientKtor {
+internal class ApiClient {
 
     private val BASE_URL = "$HOST_URL/api/public/"
-    private val httpClient = HttpClient(){
+    private val httpClient = HttpClient{
         install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true

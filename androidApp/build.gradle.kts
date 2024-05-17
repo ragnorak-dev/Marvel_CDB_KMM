@@ -1,19 +1,19 @@
 plugins {
-    kotlin("android")
+    alias(libs.plugins.android)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
 }
 
 android {
     namespace = "com.ragnorak.marvelcdb.android"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
         applicationId = "com.ragnorak.marvelcdb.android"
-        minSdk = 28
-        targetSdk = 34
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
     }
@@ -32,48 +32,43 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = libs.versions.java
+        targetCompatibility = libs.versions.java
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
+        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = libs.versions.java
     }
-    buildToolsVersion = "34.0.0"
+    buildToolsVersion = libs.versions.android.buildTool
 }
-
-val koinVersion = "3.2.0"
 
 dependencies {
     implementation(project(":shared"))
     implementation(project(":components"))
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
-    implementation("io.insert-koin:koin-core:$koinVersion")
-    implementation( "io.insert-koin:koin-android:$koinVersion")
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.image.coil)
+
+    // compose
+    val composeBom = platform(libs.compose.bom)
+    implementation (composeBom)
+    androidTestImplementation (composeBom)
+    implementation(libs.compose.material3)
     implementation(libs.compose.navigation)
     implementation(libs.compose.ui)
     implementation(libs.compose.animation)
     implementation(libs.compose.foundation)
-    implementation(libs.image.coil)
-
-    // compose
-    val composeBom = platform("androidx.compose:compose-bom:2024.05.00")
-    implementation (composeBom)
-    androidTestImplementation (composeBom)
-
-    implementation("androidx.compose.material3:material3")
 
     // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation(libs.compose.ui.tooling.preview)
+    debugImplementation(libs.compose.ui.tooling)
 
     // Optional - Integration with activities
-    implementation("androidx.activity:activity-compose:1.9.0")
+    implementation(libs.androidx.activity.compose)
     // Optional - Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
+    implementation(libs.compose.lifecycle.viewmodel)
 }

@@ -12,7 +12,7 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = libs.versions.java
+                jvmTarget = libs.versions.java.get()
             }
         }
     }
@@ -69,8 +69,8 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
     compileOptions {
-        sourceCompatibility = libs.versions.java
-        targetCompatibility = libs.versions.java
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    buildToolsVersion = libs.versions.android.buildTool
+    buildToolsVersion = libs.versions.android.buildTool.get()
 }

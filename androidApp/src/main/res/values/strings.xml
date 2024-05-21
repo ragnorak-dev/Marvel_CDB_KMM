@@ -3,4 +3,10 @@
 
     <string name="menu_heroes">Heroes</string>
     <string name="menu_favorites">Favorites</string>
+
+    <string name="attack">Attack</string>
+    <string name="defense">Defense</string>
+    <string name="health">Health</string>
+
+
 </resources>

@@ -16,5 +16,5 @@ data class MarvelCardModel(
     val cost: Int = 0,
     val quantity: Int = 0,
     val traits: String = "",
-    val imagesrc: String = "",
+    val imagesrc: String? = null,
 )

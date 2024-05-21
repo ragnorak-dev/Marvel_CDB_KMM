@@ -18,9 +18,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.ragnorak.marvelcdb.android.R
 import com.ragnorak.marvelcdb.domain.models.MarvelCardModel
+import com.ragnorak.marvelcdb.ui.ConstansUiIdentifiers
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -33,34 +37,43 @@ fun MarvelHeroDetails(
     with(sharedTransitionScope) {
         Column(
             modifier = Modifier
+                .testTag(ConstansUiIdentifiers.MARVEL_CARD_DETAILS)
                 .verticalScroll(scrollState)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AsyncImage(
-                modifier = Modifier
-                    .sharedElement(
-                        rememberSharedContentState(key = "image-${model.name}"),
-                        animatedVisibilityScope,
-                    )
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp)),
-                model = model.imagesrc,
-                contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
+            model.imagesrc?.let {
+                AsyncImage(
+                    modifier = Modifier
+                        .testTag(ConstansUiIdentifiers.MARVEL_CARD_DETAILS_IMAGE)
+                        .sharedElement(
+                            rememberSharedContentState(key = "image-${model.imagesrc}"),
+                            animatedVisibilityScope,
+                        )
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp)),
+                    model = model.imagesrc,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop
+                )
+            }
             Spacer(modifier = Modifier.padding(16.dp))
-            Text(text = model.name,
+
+            Text(modifier = Modifier
+                .testTag(ConstansUiIdentifiers.MARVEL_CARD_DETAILS_NAME),
+                text = model.name,
                 style = MaterialTheme.typography.titleLarge)
+
             Column(modifier = Modifier
+                .testTag(ConstansUiIdentifiers.MARVEL_CARD_DETAILS_INFO)
                 .fillMaxWidth()
                 .padding(16.dp),
                 horizontalAlignment = Alignment.Start) {
-                Text(text = "Attack: ${model.attack}",
+                Text(text = "${stringResource(id = R.string.attack)}: ${model.attack}",
                     style = MaterialTheme.typography.bodyMedium)
-                Text(text = "defense: ${model.defense}",
+                Text(text = "${stringResource(id = R.string.defense)}: ${model.defense}",
                     style = MaterialTheme.typography.bodyMedium)
-                Text(text = "health: ${model.health}",
+                Text(text = "${stringResource(id = R.string.health)}: ${model.health}",
                     style = MaterialTheme.typography.bodyMedium)
             }
         }

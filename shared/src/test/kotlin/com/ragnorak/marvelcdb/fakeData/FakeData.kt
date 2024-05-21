@@ -26,21 +26,21 @@ val mockErrorEngine = MockEngine {
 
 
 val marvelHeroesResponse = listOf(
-    MarvelCardResponse(typeCode = "hero", name = "Iron Man", traits = "Avengers"),
+    MarvelCardResponse(typeCode = "hero", name = "Iron Man", traits = "Avengers", imagesrc = "/ironman.jpg"),
     MarvelCardResponse(typeCode = "hero", name = "Captain America", traits = "Avengers"),
     MarvelCardResponse(typeCode = "hero", name = "Thor", traits = "Avengers"),
     MarvelCardResponse(typeCode = "hero", name = "Wolverine", traits = "X-men")
 )
 
 val expectedMarvelHeroesModel = listOf(
-    MarvelCardModel(typeCode = "hero", name = "Iron Man", traits = "Avengers", imagesrc = "https://marvelcdb.com"),
-    MarvelCardModel(typeCode = "hero",  name = "Captain America", traits = "Avengers", imagesrc = "https://marvelcdb.com"),
-    MarvelCardModel(typeCode = "hero", name = "Thor", traits = "Avengers", imagesrc = "https://marvelcdb.com")
+    MarvelCardModel(typeCode = "hero", name = "Iron Man", traits = "Avengers", imagesrc = "https://marvelcdb.com/ironman.jpg"),
+    MarvelCardModel(typeCode = "hero",  name = "Captain America", traits = "Avengers"),
+    MarvelCardModel(typeCode = "hero", name = "Thor", traits = "Avengers")
 )
 
 const val marvelJsonResponse =  """
                     [
-                        {"type_code": "hero", "name": "Iron Man", "traits": "Avengers"},
+                        {"type_code": "hero", "name": "Iron Man", "traits": "Avengers", "imagesrc": "/ironman.jpg"},
                         {"type_code": "hero", "name": "Captain America", "traits": "Avengers"},
                         {"type_code": "hero", "name": "Thor", "traits": "Avengers"},
                         {"type_code": "hero", "name": "Wolverine", "traits": "X-men"}

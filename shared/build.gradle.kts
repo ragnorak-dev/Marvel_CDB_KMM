@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.mocking)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -73,4 +74,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     buildToolsVersion = libs.versions.android.buildTool.get()
+}
+dependencies {
+    testImplementation(libs.ktor.client.test)
 }

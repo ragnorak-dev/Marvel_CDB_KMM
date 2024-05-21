@@ -11,17 +11,18 @@ import com.ragnorak.marvelcdb.ui.MarvelCardListViewModel
 import com.ragnorak.marvelcdb.ui.ViewState
 import com.ragnorak.marvelcdb.ui.heroDetails.MarvelHeroDetails
 import com.ragnorak.marvelcdb.ui.heroesList.MarvelHeroesList
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun MarvelAppNavHost(viewModel: MarvelCardListViewModel) {
+fun MarvelAppNavHost(
+    viewModel: MarvelCardListViewModel = koinViewModel(),
+    startDestination: String = Route.HEROES_LIST) {
     val navController = rememberNavController()
-    SharedTransitionLayout(
-
-    ) {
+    SharedTransitionLayout {
         NavHost(
             navController = navController,
-            startDestination = Route.HEROES_LIST
+            startDestination = startDestination
         ) {
             composable(Route.HEROES_LIST) {
                 MarvelHeroesList(

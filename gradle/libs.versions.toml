@@ -43,6 +43,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 image-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
@@ -55,6 +56,8 @@ compose-ui = { module = "androidx.compose.ui:ui", version.ref = "uiCompose" }
 compose-animation = { module = "androidx.compose.animation:animation", version.ref = "animationCompose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "foundationCompose" }
 compose-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewModelCompose" }
+compose-testing-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose"}
+compose-testing-junit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 kotlinx-coroutines-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines"}
 ktor-client-core = {module = "io.ktor:ktor-client-core", version.ref = "ktor"}
 ktor-client-contentNegotiation = {module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor"}

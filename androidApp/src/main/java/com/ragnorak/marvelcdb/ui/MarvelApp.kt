@@ -20,16 +20,14 @@ import com.ragnorak.marvelcdb.ui.navigation.Route
 import com.ragnorak.marvelcdb.ui.navigation.getTopDestinations
 
 @Composable
-fun MarvelApp(viewModel: MarvelCardListViewModel) {
-
-
+fun MarvelApp() {
     Scaffold(
         bottomBar = {
             MarvelBottomAppBar()
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
-            MarvelAppNavHost(viewModel)
+            MarvelAppNavHost()
 
         }
     }

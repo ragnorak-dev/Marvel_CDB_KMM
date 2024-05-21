@@ -16,6 +16,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
         compose = true
@@ -51,6 +52,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+    implementation(libs.koin.compose)
     implementation(libs.image.coil)
 
     // compose
@@ -71,4 +73,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     // Optional - Integration with ViewModels
     implementation(libs.compose.lifecycle.viewmodel)
+
+    androidTestImplementation(libs.compose.testing.junit)
+    debugImplementation(libs.compose.testing.manifest)
 }

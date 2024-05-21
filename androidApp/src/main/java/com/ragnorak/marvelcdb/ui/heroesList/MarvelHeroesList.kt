@@ -13,10 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import com.ragnorak.components.LoadingComponent
 import com.ragnorak.components.marvel.MarvelHeroCard
 import com.ragnorak.components.marvel.MarvelHeroCompModel
 import com.ragnorak.marvelcdb.domain.models.MarvelCardModel
+import com.ragnorak.marvelcdb.ui.ConstansUiIdentifiers
 import com.ragnorak.marvelcdb.ui.MarvelCardListViewModel
 import com.ragnorak.marvelcdb.ui.ViewState
 
@@ -82,6 +84,7 @@ private fun MarvelHeroesListSuccess(
 
         items(marvelCardList) { hero ->
             MarvelHeroCard(
+                modifier = Modifier.testTag(ConstansUiIdentifiers.MARVEL_CARD_LIST),
                 sharedTransitionScope = sharedTransitionScope,
                 animatedVisibilityScope = animatedVisibilityScope,
                 hero = MarvelHeroCompModel(

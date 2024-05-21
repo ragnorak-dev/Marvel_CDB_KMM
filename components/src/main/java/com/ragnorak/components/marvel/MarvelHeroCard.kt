@@ -23,41 +23,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
-data class MarvelHeroCompModel(val name: String, val faction: String, val imageUrl: String)
+data class MarvelHeroCompModel(val name: String, val faction: String, val imageUrl: String?)
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun MarvelHeroCard(
+    modifier: Modifier = Modifier,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     hero: MarvelHeroCompModel,
     onclick: () -> Unit
 ) {
-    val textStyle = LocalTextStyle.current
-    val textMeasurer = rememberTextMeasurer()
-    val twoLinesHeightMeasurement = remember(textStyle, textMeasurer) {
-        textMeasurer.measure(
-            text = "\n",
-            style = textStyle.copy(textAlign = TextAlign.Center)
-        ).size.height
-    }
-
-    val newHeight = with(LocalDensity.current) { twoLinesHeightMeasurement.toDp() }
-
     with(sharedTransitionScope) {
         Card(
-            modifier = Modifier
+            modifier = modifier
                 .padding(8.dp)
                 .clickable {
                     onclick()
                 },
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
         ) {
+            hero.imageUrl?.let {
                 AsyncImage(
                     modifier = Modifier
                         .sharedElement(
@@ -73,14 +65,15 @@ fun MarvelHeroCard(
                     alignment = Alignment.Center,
                     contentScale = ContentScale.Crop,
                 )
+            }
 
                 Text(
                     modifier = Modifier
                         .padding(horizontal = 8.dp)
-                        .height(newHeight),
+                        .align(Alignment.CenterHorizontally),
                     maxLines = 2,
                     text = hero.name,
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.titleSmall
                 )
             }
 

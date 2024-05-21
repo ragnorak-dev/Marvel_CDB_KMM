@@ -40,7 +40,7 @@ fun MarvelHeroDetails(
             AsyncImage(
                 modifier = Modifier
                     .sharedElement(
-                        rememberSharedContentState(key = "image-${model.name}"),
+                        rememberSharedContentState(key = "image-${model.imagesrc}"),
                         animatedVisibilityScope,
                     )
                     .fillMaxWidth()

@@ -5,7 +5,7 @@ import com.ragnorak.marvelcdb.data.repositories.MarvelCardRepository
 import com.ragnorak.marvelcdb.domain.models.MarvelCardModel
 import com.ragnorak.marvelcdb.domain.models.mappers.toModel
 
-class GetMarvelCardListUseCaseImpl(
+class GetMarvelCardAvengerListUseCaseImpl(
     private val marvelCardRepository: MarvelCardRepository
 ) : GetMarvelCardListUseCase {
 
@@ -13,7 +13,16 @@ class GetMarvelCardListUseCaseImpl(
         val result = marvelCardRepository.getMarvelCardList()
 
         return result.fold(
-            onSuccess = { ResultData.success(it.map { it.toModel() }) },
+            onSuccess = {
+                ResultData.success(
+                    it.filter { hero ->
+                        hero.traits.contains("Avenger")
+                    }.filter { hero ->
+                        hero.typeCode == "hero"
+                    }.map { hero ->
+                        hero.toModel()
+                    })
+            },
             onFailure = { ResultData.failure(it) })
     }
 }

@@ -12,11 +12,11 @@ import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class GetMarvelCardListUseCaseImplTest {
+class GetMarvelCardAvengerListUseCaseImplTest {
 
     private val repository = mock<MarvelCardRepository>()
 
-    private val sut = GetMarvelCardListUseCaseImpl(repository)
+    private val sut = GetMarvelCardAvengerListUseCaseImpl(repository)
 
     @Test
     fun `Use case returns marvel heroes success`() = runBlocking {

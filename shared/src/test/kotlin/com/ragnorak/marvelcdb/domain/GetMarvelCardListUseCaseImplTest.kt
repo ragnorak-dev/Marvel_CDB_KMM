@@ -3,7 +3,7 @@ package com.ragnorak.marvelcdb.domain
 import com.ragnorak.marvelcdb.ResultData
 import com.ragnorak.marvelcdb.data.repositories.MarvelCardRepository
 import com.ragnorak.marvelcdb.fakeData.exception
-import com.ragnorak.marvelcdb.fakeData.expectedMarvelHeroes
+import com.ragnorak.marvelcdb.fakeData.expectedMarvelHeroesModel
 import com.ragnorak.marvelcdb.fakeData.marvelHeroesResponse
 import dev.mokkery.answering.returns
 import dev.mokkery.everySuspend
@@ -27,7 +27,7 @@ class GetMarvelCardListUseCaseImplTest {
 
         val result = sut()
 
-        assertEquals(expectedMarvelHeroes, result.value)
+        assertEquals(expectedMarvelHeroesModel, result.value)
     }
 
     @Test

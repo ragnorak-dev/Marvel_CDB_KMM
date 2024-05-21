@@ -76,5 +76,5 @@ android {
     buildToolsVersion = libs.versions.android.buildTool.get()
 }
 dependencies {
-    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.ktor.client.test)
 }

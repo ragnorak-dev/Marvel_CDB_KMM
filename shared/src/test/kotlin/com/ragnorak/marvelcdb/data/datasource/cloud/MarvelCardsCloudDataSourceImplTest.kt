@@ -4,6 +4,7 @@ import com.ragnorak.marvelcdb.data.network.ApiClient
 import com.ragnorak.marvelcdb.fakeData.marvelHeroesResponse
 import com.ragnorak.marvelcdb.fakeData.mockEngine
 import com.ragnorak.marvelcdb.fakeData.mockErrorEngine
+import io.ktor.client.plugins.ServerResponseException
 import kotlinx.coroutines.runBlocking
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -31,6 +32,6 @@ class MarvelCardsCloudDataSourceImplTest {
 
         val result = sut.getMarvelCardList()
 
-        assertTrue(result.exceptionOrNull() is Exception)
+        assertTrue(result.exceptionOrNull() is ServerResponseException)
     }
 }

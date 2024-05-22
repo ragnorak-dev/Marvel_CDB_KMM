@@ -7,8 +7,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ragnorak.marvelcdb.domain.models.MarvelCardModel
+import com.ragnorak.marvelcdb.ui.MarvelAppState
 import com.ragnorak.marvelcdb.ui.MarvelCardListViewModel
 import com.ragnorak.marvelcdb.ui.ViewState
+import com.ragnorak.marvelcdb.ui.favouritesHeroes.FavouritesHeroesView
 import com.ragnorak.marvelcdb.ui.heroDetails.MarvelHeroDetails
 import com.ragnorak.marvelcdb.ui.heroesList.MarvelHeroesList
 import org.koin.androidx.compose.koinViewModel
@@ -16,13 +18,13 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun MarvelAppNavHost(
+    appState: MarvelAppState,
     viewModel: MarvelCardListViewModel = koinViewModel(),
-    startDestination: String = Route.HEROES_LIST) {
-    val navController = rememberNavController()
+) {
     SharedTransitionLayout {
         NavHost(
-            navController = navController,
-            startDestination = startDestination
+            navController = appState.navController,
+            startDestination = Route.HEROES_LIST
         ) {
             composable(Route.HEROES_LIST) {
                 MarvelHeroesList(
@@ -30,7 +32,7 @@ fun MarvelAppNavHost(
                     animatedVisibilityScope = this@composable,
                     viewModel = viewModel
                 ) { heroCode ->
-                    navController.navigate(Route.HERO_DETAILS.plus("/$heroCode"))
+                    appState.navController.navigate(Route.HERO_DETAILS.plus("/$heroCode"))
                 }
             }
             composable(Route.HERO_DETAILS.plus("/{heroCode}")) { backStackEntry ->
@@ -42,11 +44,22 @@ fun MarvelAppNavHost(
                     MarvelHeroDetails(
                         sharedTransitionScope = this@SharedTransitionLayout,
                         animatedVisibilityScope = this@composable,
-                        model = marvelHeroModel)
+                        model = marvelHeroModel,
+                        addFavouriteAction = { viewModel.addMarvelFavouriteCard(marvelHeroModel) },
+                        deleteFavouriteAction = { viewModel.deleteMarvelFavouriteCard(marvelHeroModel) }
+                    )
                 }
             }
             composable(Route.FAVORITES) {
-
+                FavouritesHeroesView(
+                    favouritesHeroesFlow = viewModel.marvelCardFavoriteList,
+                    sharedTransitionScope = this@SharedTransitionLayout,
+                    animatedVisibilityScope = this@composable,
+                    deleteAction = { viewModel.deleteMarvelFavouriteCard(it) },
+                    navigationDetailAction = { heroCode ->
+                        appState.navController.navigate(Route.HERO_DETAILS.plus("/$heroCode"))
+                    }
+                )
             }
         }
     }

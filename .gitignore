@@ -34,3 +34,4 @@ build/logs
 /*.ipa
 /*.zip
 
+shared/schemas/com.ragnorak.marvelcdb.data.ddbb.MarvelCardDataBase/1.json

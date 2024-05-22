@@ -16,7 +16,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,12 +29,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.ragnorak.marvelcdb.android.R
 import com.ragnorak.marvelcdb.domain.models.MarvelCardModel
 import com.ragnorak.marvelcdb.ui.ConstansUiIdentifiers
+import com.ragnorak.components.foundations.Dimensions
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -65,13 +64,13 @@ fun MarvelHeroDetails(
                             animatedVisibilityScope,
                         )
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp)),
+                        .clip(RoundedCornerShape(Dimensions.md)),
                     model = model.imagesrc,
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
             }
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.padding(Dimensions.md))
 
             Text(
                 modifier = Modifier
@@ -87,7 +86,7 @@ fun MarvelHeroDetails(
                 Column(
                     modifier = Modifier
                         .testTag(ConstansUiIdentifiers.MARVEL_CARD_DETAILS_INFO)
-                        .padding(16.dp),
+                        .padding(Dimensions.md),
                     horizontalAlignment = Alignment.Start
                 ) {
                     Text(
@@ -105,7 +104,7 @@ fun MarvelHeroDetails(
                 }
                 Icon(
                     modifier = Modifier
-                        .size(56.dp)
+                        .size(Dimensions.xxxl)
                         .clickable {
                             if (favouriteState) {
                                 deleteFavouriteAction(model)
@@ -123,7 +122,6 @@ fun MarvelHeroDetails(
                         Color.Gray
                     }
                 )
-
             }
         }
     }

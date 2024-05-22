@@ -55,7 +55,6 @@ fun MarvelAppNavHost(
                     favouritesHeroesFlow = viewModel.marvelCardFavoriteList,
                     sharedTransitionScope = this@SharedTransitionLayout,
                     animatedVisibilityScope = this@composable,
-                    deleteAction = { viewModel.deleteMarvelFavouriteCard(it) },
                     navigationDetailAction = { heroCode ->
                         appState.navController.navigate(Route.HERO_DETAILS.plus("/$heroCode"))
                     }

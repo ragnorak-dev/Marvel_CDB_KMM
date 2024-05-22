@@ -15,9 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.ragnorak.marvelcdb.ui.heroesList.MarvelHeroesList
+import com.ragnorak.components.foundations.Dimensions
 import com.ragnorak.marvelcdb.ui.navigation.MarvelAppNavHost
 import com.ragnorak.marvelcdb.ui.navigation.Route
 import com.ragnorak.marvelcdb.ui.navigation.getTopDestinations
@@ -58,7 +57,7 @@ private fun MarvelBottomAppBar(appState: MarvelAppState) {
                             } else {
                                 marvelDestination.unselectedColor
                             },
-                            modifier = Modifier.size(36.dp)
+                            modifier = Modifier.size(Dimensions.xl)
                         )
                     }
                 )

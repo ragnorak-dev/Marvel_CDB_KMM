@@ -23,7 +23,6 @@ import kotlinx.coroutines.flow.Flow
 @Composable
 fun FavouritesHeroesView(
     favouritesHeroesFlow: Flow<List<MarvelCardModel>>,
-    deleteAction: (MarvelCardModel) -> Unit,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     navigationDetailAction: (heroCode: String) -> Unit

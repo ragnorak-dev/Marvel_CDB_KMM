@@ -2,12 +2,12 @@ package com.ragnorak.marvelcdb.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes
-import androidx.compose.ui.unit.dp
+import com.ragnorak.components.foundations.Dimensions
 
 val shapes = Shapes(
-    extraSmall = RoundedCornerShape(4.dp),
-    small = RoundedCornerShape(8.dp),
-    medium = RoundedCornerShape(16.dp),
-    large = RoundedCornerShape(24.dp),
-    extraLarge = RoundedCornerShape(32.dp)
+    extraSmall = RoundedCornerShape(Dimensions.xs),
+    small = RoundedCornerShape(Dimensions.s),
+    medium = RoundedCornerShape(Dimensions.md),
+    large = RoundedCornerShape(Dimensions.lg),
+    extraLarge = RoundedCornerShape(Dimensions.xl)
 )

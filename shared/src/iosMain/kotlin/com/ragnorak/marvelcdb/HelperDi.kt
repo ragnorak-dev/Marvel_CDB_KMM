@@ -1,6 +1,7 @@
 package com.ragnorak.marvelcdb
 
 import com.ragnorak.marvelcdb.di.commonModule
+import com.ragnorak.marvelcdb.di.iOSMarvelModule
 import com.ragnorak.marvelcdb.domain.GetMarvelCardAvengerListUseCaseImpl
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -13,6 +14,6 @@ class GetMarvelCardListUseCaseHelper : KoinComponent {
 
 fun initKoin() {
     startKoin {
-        modules(commonModule)
+        modules(iOSMarvelModule, commonModule)
     }
 }

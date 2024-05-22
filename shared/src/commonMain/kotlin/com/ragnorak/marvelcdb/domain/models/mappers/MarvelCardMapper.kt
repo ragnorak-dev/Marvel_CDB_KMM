@@ -21,7 +21,7 @@ internal fun MarvelCardResponse.toModel(): MarvelCardModel =
         cost = cost,
         quantity = quantity,
         traits = traits,
-        imagesrc = if (imagesrc.isBlank()) {
+        imagesrc = if (imagesrc.isNullOrBlank()) {
             null
         } else {
             HOST_URL.plus(imagesrc)

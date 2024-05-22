@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.mocking)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -17,7 +19,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -30,35 +32,31 @@ kotlin {
 
     sourceSets {
 
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.kotlinx.coroutines.core)
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.contentNegotiation)
-                implementation(libs.ktor.serialization.json)
-                implementation(libs.ktor.serialization)
-                api(project.dependencies.platform(libs.koin.bom))
-                api(libs.koin.core)
-                api(libs.koin.test)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
+        commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.contentNegotiation)
+            implementation(libs.ktor.serialization.json)
+            implementation(libs.ktor.serialization)
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
+            api(project.dependencies.platform(libs.koin.bom))
+            api(libs.koin.core)
+            api(libs.koin.test)
+
         }
 
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.okhttp)
-                implementation(libs.compose.runtime)
-            }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
 
-        val iosMain by getting {
-            dependencies {
-                implementation(libs.ktor.client.darwin)
-            }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.compose.runtime)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
@@ -75,6 +73,13 @@ android {
     }
     buildToolsVersion = libs.versions.android.buildTool.get()
 }
+
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
 dependencies {
     testImplementation(libs.ktor.client.test)
+    ksp(libs.room.compiler)
 }
+

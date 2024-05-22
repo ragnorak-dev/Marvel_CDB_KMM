@@ -1,14 +1,15 @@
-package com.ragnorak.marvelcdb.domain.models
+package com.ragnorak.marvelcdb.data.datasource.entities
 
-import com.ragnorak.marvelcdb.data.datasource.entities.MarvelFavouriteCardEntity
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.ragnorak.marvelcdb.domain.models.MarvelCardModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
-data class MarvelCardModel(
-    val packCode: String = "",
-    val typeCode: String = "",
-    val factionCode: String = "",
-    val position: Int = 0,
+@Entity
+data class MarvelFavouriteCardEntity(
+    @PrimaryKey
     val code: String = "",
+    val position: Int = 0,
     val name: String = "",
     val subname: String = "",
     val text: String = "",
@@ -20,12 +21,11 @@ data class MarvelCardModel(
     val quantity: Int = 0,
     val traits: String = "",
     val imagesrc: String? = null,
-    var isFavourite: MutableStateFlow<Boolean> = MutableStateFlow(false),
 ) {
-    fun toEntity(): MarvelFavouriteCardEntity =
-        MarvelFavouriteCardEntity(
-            position = position,
+    fun toModel(): MarvelCardModel =
+        MarvelCardModel(
             code = code,
+            position = position,
             name = name,
             subname = subname,
             text = text,
@@ -36,6 +36,7 @@ data class MarvelCardModel(
             cost = cost,
             quantity = quantity,
             traits = traits,
-            imagesrc = imagesrc ?: "",
+            imagesrc = imagesrc,
+            isFavourite = MutableStateFlow(true)
         )
 }

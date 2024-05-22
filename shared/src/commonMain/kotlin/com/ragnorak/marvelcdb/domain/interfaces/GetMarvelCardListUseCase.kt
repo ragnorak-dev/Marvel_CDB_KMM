@@ -1,4 +1,4 @@
-package com.ragnorak.marvelcdb.domain
+package com.ragnorak.marvelcdb.domain.interfaces
 
 import com.ragnorak.marvelcdb.ResultData
 import com.ragnorak.marvelcdb.domain.models.MarvelCardModel

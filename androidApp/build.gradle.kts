@@ -65,6 +65,9 @@ dependencies {
     implementation(libs.compose.animation)
     implementation(libs.compose.foundation)
 
+    //Room
+    implementation(libs.room.runtime.android)
+
     // Android Studio Preview support
     implementation(libs.compose.ui.tooling.preview)
     debugImplementation(libs.compose.ui.tooling)

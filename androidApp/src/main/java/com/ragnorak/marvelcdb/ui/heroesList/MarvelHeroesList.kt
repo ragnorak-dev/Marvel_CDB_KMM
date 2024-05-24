@@ -10,12 +10,15 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.vectorResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragnorak.components.LoadingComponent
 import com.ragnorak.components.marvel.MarvelHeroCard
 import com.ragnorak.components.marvel.MarvelHeroCompModel
@@ -33,8 +36,10 @@ fun MarvelHeroesList(
     viewModel: MarvelCardListViewModel,
     navigationDetailAction: (heroCode: String) -> Unit
 ) {
+
     val marvelCardListState =
         viewModel.marvelCardList.collectAsState()
+
 
     when (marvelCardListState.value) {
         ViewState.Idle -> {
@@ -50,6 +55,7 @@ fun MarvelHeroesList(
                 marvelCardList = ((marvelCardListState.value as ViewState.Success<List<MarvelCardModel>>).data),
                 sharedTransitionScope = sharedTransitionScope,
                 animatedVisibilityScope = animatedVisibilityScope,
+                viewModel = viewModel,
                 navigationDetailAction = navigationDetailAction
             )
 
@@ -77,8 +83,10 @@ private fun MarvelHeroesListSuccess(
     marvelCardList: List<MarvelCardModel>,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
+    viewModel: MarvelCardListViewModel,
     navigationDetailAction: (heroCode: String) -> Unit
 ) {
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = Modifier
@@ -94,7 +102,7 @@ private fun MarvelHeroesListSuccess(
                     name = hero.name,
                     faction = hero.factionCode,
                     imageUrl = hero.imagesrc,
-                    isFavourite = hero.isFavourite.value,
+                    isFavourite = hero.isFavourite,
                     favouriteIcon = ImageVector.vectorResource(id = R.drawable.favorite_icon)
                 )
             ) {

@@ -1,6 +1,7 @@
 package com.ragnorak.marvelcdb.data.repositories
 
 import com.ragnorak.marvelcdb.data.datasource.MarvelCardsDataSource
+import com.ragnorak.marvelcdb.data.datasource.MarvelFavouriteCardsDataSource
 import com.ragnorak.marvelcdb.fakeData.exception
 import com.ragnorak.marvelcdb.fakeData.marvelHeroesResponse
 import dev.mokkery.answering.returns
@@ -12,15 +13,19 @@ import kotlin.test.assertEquals
 
 class MarvelCardRepositoryImplTest{
 
-    private val dataSource = mock<MarvelCardsDataSource>()
+    private val cloudDataSource = mock<MarvelCardsDataSource>()
+    private val localDataSource = mock<MarvelFavouriteCardsDataSource>()
 
-    private val sut = MarvelCardRepositoryImpl(dataSource)
+    private val sut = MarvelCardRepositoryImpl(
+        marvelCardsCloudDataSource = cloudDataSource,
+        marvelCardsLocalDataSource = localDataSource
+    )
 
     @Test
     fun `repository returns marvel heroes success`() = runBlocking {
 
         everySuspend {
-            dataSource.getMarvelCardList()
+            cloudDataSource.getMarvelCardList()
         } returns Result.success(marvelHeroesResponse)
 
         val result = sut.getMarvelCardList()
@@ -32,7 +37,7 @@ class MarvelCardRepositoryImplTest{
     fun `repository returns marvel heroes Error`() = runBlocking {
 
         everySuspend {
-            dataSource.getMarvelCardList()
+            cloudDataSource.getMarvelCardList()
         } returns Result.failure(exception)
 
         val result = sut.getMarvelCardList()

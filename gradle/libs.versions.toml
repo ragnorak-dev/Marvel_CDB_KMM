@@ -26,6 +26,7 @@ animationCompose = "1.7.0-beta01"
 foundationCompose = "1.7.0-beta01"
 lifecycleViewModelCompose = "2.8.0"
 coroutines = "1.8.1"
+turbine = "1.1.0"
 ktor = "2.3.11"
 mock = "1.9.23-1.7.0"
 room = "2.7.0-alpha01"
@@ -62,6 +63,8 @@ compose-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel
 compose-testing-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose"}
 compose-testing-junit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 kotlinx-coroutines-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines"}
+kotlinx-coroutines-test = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines"}
+test-turbine = {module = "app.cash.turbine:turbine", version.ref = "turbine"}
 ktor-client-core = {module = "io.ktor:ktor-client-core", version.ref = "ktor"}
 ktor-client-contentNegotiation = {module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor"}
 ktor-client-okhttp = {module = "io.ktor:ktor-client-okhttp", version.ref = "ktor"}

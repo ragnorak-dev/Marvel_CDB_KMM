@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.mocking)
 }
 
 android {
@@ -77,6 +78,11 @@ dependencies {
     // Optional - Integration with ViewModels
     implementation(libs.compose.lifecycle.viewmodel)
 
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.test.turbine)
+
     androidTestImplementation(libs.compose.testing.junit)
+    androidTestImplementation(libs.koin.core)
+    androidTestImplementation(libs.test.turbine)
     debugImplementation(libs.compose.testing.manifest)
 }

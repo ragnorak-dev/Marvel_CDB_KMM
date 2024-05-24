@@ -17,4 +17,8 @@ class MarvelCardsLocalDataSourceImpl(
 
     override suspend fun deleteFavouriteCard(marvelFavouriteCardEntity: MarvelFavouriteCardEntity) =
         marvelCardsDao.delete(marvelFavouriteCardEntity)
+
+    override suspend fun deleteAll() {
+        marvelCardsDao.deleteAll()
+    }
 }

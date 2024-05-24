@@ -10,6 +10,7 @@ import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onChildAt
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.navigation.compose.rememberNavController
 import androidx.test.platform.app.InstrumentationRegistry
 import com.ragnorak.marvelcdb.android.R
 import com.ragnorak.marvelcdb.di.stubCommonModule
@@ -19,6 +20,7 @@ import com.ragnorak.marvelcdb.ui.ConstansUiIdentifiers.MARVEL_CARD_DETAILS_IMAGE
 import com.ragnorak.marvelcdb.ui.ConstansUiIdentifiers.MARVEL_CARD_DETAILS_INFO
 import com.ragnorak.marvelcdb.ui.ConstansUiIdentifiers.MARVEL_CARD_DETAILS_NAME
 import com.ragnorak.marvelcdb.ui.navigation.MarvelAppNavHost
+import com.ragnorak.marvelcdb.ui.rememberMarvelAppState
 import org.junit.Before
 import org.junit.Rule
 import org.koin.core.context.loadKoinModules
@@ -37,7 +39,7 @@ class MarvelHeroDetailsTest {
     fun setup() {
         loadKoinModules(stubCommonModule)
         composeTestRule.setContent {
-            MarvelAppNavHost()
+            MarvelAppNavHost(appState = rememberMarvelAppState(rememberNavController()))
         }
         composeTestRule.onAllNodesWithTag(ConstansUiIdentifiers.MARVEL_CARD_LIST)[0].performClick()
     }

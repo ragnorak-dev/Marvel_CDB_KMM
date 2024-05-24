@@ -37,6 +37,6 @@ data class MarvelFavouriteCardEntity(
             quantity = quantity,
             traits = traits,
             imagesrc = imagesrc,
-            isFavourite = MutableStateFlow(true)
+            isFavourite = true
         )
 }

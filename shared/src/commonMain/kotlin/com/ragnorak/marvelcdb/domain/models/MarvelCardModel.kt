@@ -20,7 +20,7 @@ data class MarvelCardModel(
     val quantity: Int = 0,
     val traits: String = "",
     val imagesrc: String? = null,
-    var isFavourite: MutableStateFlow<Boolean> = MutableStateFlow(false),
+    var isFavourite: Boolean = false,
 ) {
     fun toEntity(): MarvelFavouriteCardEntity =
         MarvelFavouriteCardEntity(

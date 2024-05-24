@@ -1,7 +1,7 @@
 package com.ragnorak.marvelcdb.ui
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ragnorak.marvelcdb.domain.interfaces.AddMarvelFavouriteCardUseCase
@@ -23,10 +23,10 @@ class MarvelCardListViewModel(
     private val deleteMarvelFavouriteCardUseCase: DeleteMarvelFavouriteCardUseCase
 ) : ViewModel() {
 
-    private val _marvelCardList = MutableStateFlow<ViewState<List<MarvelCardModel>>>(ViewState.Idle)
-    val marvelCardList: StateFlow<ViewState<List<MarvelCardModel>>> = _marvelCardList
+    private val _marvelCardList =
+        MutableStateFlow<ViewState<SnapshotStateList<MarvelCardModel>>>(ViewState.Idle)
+    val marvelCardList: StateFlow<ViewState<SnapshotStateList<MarvelCardModel>>> = _marvelCardList
 
-    val test: MutableState<Boolean> = mutableStateOf(false)
     val marvelCardFavoriteList: Flow<List<MarvelCardModel>> = getMarvelCardFavoriteListUseCase()
 
     fun getMarvelCardList() {
@@ -38,9 +38,28 @@ class MarvelCardListViewModel(
                     _marvelCardList.value = ViewState.Error(it.message ?: "ERROR")
                 }
                 .onSuccess {
-                    _marvelCardList.value = ViewState.Success(it)
+                    viewModelScope.launch {
+                        val mutableStateListOf = mutableStateListOf<MarvelCardModel>()
+                        mutableStateListOf.addAll(it)
+                        marvelCardFavoriteList.collect { favouriteList ->
+                            matchingMarvelCardListWithFavouriteList(
+                                favouriteList = favouriteList,
+                                marvelCardList = mutableStateListOf
+                            )
+                            _marvelCardList.emit(ViewState.Success(mutableStateListOf))
+                        }
+                    }
                 }
         }
+    }
+
+    private fun matchingMarvelCardListWithFavouriteList(
+        favouriteList: List<MarvelCardModel>,
+        marvelCardList: SnapshotStateList<MarvelCardModel>
+    ) {
+        marvelCardList.map { marvelCardModel ->
+                marvelCardModel.isFavourite = favouriteList.any { it.code == marvelCardModel.code }
+            }
     }
 
     fun addMarvelFavouriteCard(marvelCardModel: MarvelCardModel) {

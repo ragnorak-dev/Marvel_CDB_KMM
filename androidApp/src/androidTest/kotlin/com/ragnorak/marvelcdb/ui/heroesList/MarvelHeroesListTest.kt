@@ -48,9 +48,7 @@ class MarvelHeroesListTest {
                 }
             }
         }
-
     }
-
 
     @Test
     fun marvelHeroesList_displaysHeroes() {

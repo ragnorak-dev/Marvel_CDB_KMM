@@ -19,18 +19,12 @@ class GetMarvelCardAvengerListUseCaseImpl(
 
         return result.fold(
             onSuccess = {
-
                 val marvelCardList = it.filter { hero ->
                     hero.traits.contains("Avenger")
                 }.filter { hero ->
                     hero.typeCode == "hero"
                 }.map { hero ->
                     hero.toModel()
-                }
-
-                marvelCardList.forEach { marvelCard ->
-                    marvelCard.isFavourite.value =
-                        favourites.any { favourite -> favourite.code == marvelCard.code }
                 }
                 ResultData.success(marvelCardList)
             },

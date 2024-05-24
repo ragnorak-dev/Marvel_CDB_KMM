@@ -20,6 +20,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,8 +48,8 @@ fun MarvelHeroDetails(
     addFavouriteAction: (MarvelCardModel) -> Unit,
     deleteFavouriteAction: (MarvelCardModel) -> Unit
 ) {
-    val favouriteState by model.isFavourite.collectAsStateWithLifecycle(initialValue = false)
     val scrollState = rememberScrollState()
+    var favouriteState by remember{ mutableStateOf(model.isFavourite)}
     with(sharedTransitionScope) {
         Column(
             modifier = Modifier
@@ -106,12 +109,12 @@ fun MarvelHeroDetails(
                     modifier = Modifier
                         .size(Dimensions.xxxl)
                         .clickable {
-                            if (favouriteState) {
+                            if (model.isFavourite) {
                                 deleteFavouriteAction(model)
                             } else {
                                 addFavouriteAction(model)
                             }
-                            model.isFavourite.value = !model.isFavourite.value
+                            favouriteState = !favouriteState
                         }
                         .align(Alignment.CenterVertically),
                     imageVector = ImageVector.vectorResource(id = R.drawable.favorite_icon),

@@ -16,6 +16,9 @@ interface MarvelCardDao {
     @Delete
     suspend fun delete(marvelCard: MarvelFavouriteCardEntity)
 
+    @Query(value = "DELETE FROM MarvelFavouriteCardEntity")
+    suspend fun deleteAll()
+
     @Query(value = "SELECT * FROM MarvelFavouriteCardEntity")
     fun getAll(): Flow<List<MarvelFavouriteCardEntity>>
 }

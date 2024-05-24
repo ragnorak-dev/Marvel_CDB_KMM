@@ -45,8 +45,12 @@ fun MarvelAppNavHost(
                         sharedTransitionScope = this@SharedTransitionLayout,
                         animatedVisibilityScope = this@composable,
                         model = marvelHeroModel,
-                        addFavouriteAction = { viewModel.addMarvelFavouriteCard(marvelHeroModel) },
-                        deleteFavouriteAction = { viewModel.deleteMarvelFavouriteCard(marvelHeroModel) }
+                        addFavouriteAction = {
+                            viewModel.addMarvelFavouriteCard(marvelHeroModel)
+                        },
+                        deleteFavouriteAction = {
+                            viewModel.deleteMarvelFavouriteCard(marvelHeroModel)
+                        }
                     )
                 }
             }

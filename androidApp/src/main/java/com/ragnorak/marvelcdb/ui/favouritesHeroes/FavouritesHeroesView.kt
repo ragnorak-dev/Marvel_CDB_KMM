@@ -46,7 +46,7 @@ fun FavouritesHeroesView(
                     name = hero.name,
                     faction = hero.factionCode,
                     imageUrl = hero.imagesrc,
-                    isFavourite = hero.isFavourite.value
+                    isFavourite = hero.isFavourite
                 )
             ) {
                 navigationDetailAction(hero.code)

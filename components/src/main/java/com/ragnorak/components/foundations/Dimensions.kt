@@ -12,4 +12,8 @@ object Dimensions {
     val xxl: Dp = 48.dp
     val xxxl: Dp = 56.dp
 
+    val cardHeight: Dp = 250.dp
+    val cardWidth: Dp = 180.dp
+
+
 }

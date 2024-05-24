@@ -7,8 +7,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -21,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.ragnorak.components.foundations.Dimensions
 
@@ -53,6 +56,8 @@ fun MarvelHeroCard(
             hero.imageUrl?.let {
                 AsyncImage(
                     modifier = Modifier
+                        .height(Dimensions.cardHeight)
+                        .width(Dimensions.cardWidth)
                         .sharedElement(
                             state = rememberSharedContentState(
                                 key = "image-${hero.imageUrl}",

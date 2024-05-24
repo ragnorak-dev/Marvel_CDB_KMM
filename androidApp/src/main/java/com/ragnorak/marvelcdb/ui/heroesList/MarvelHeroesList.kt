@@ -55,7 +55,6 @@ fun MarvelHeroesList(
                 marvelCardList = ((marvelCardListState.value as ViewState.Success<List<MarvelCardModel>>).data),
                 sharedTransitionScope = sharedTransitionScope,
                 animatedVisibilityScope = animatedVisibilityScope,
-                viewModel = viewModel,
                 navigationDetailAction = navigationDetailAction
             )
 
@@ -83,7 +82,6 @@ private fun MarvelHeroesListSuccess(
     marvelCardList: List<MarvelCardModel>,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
-    viewModel: MarvelCardListViewModel,
     navigationDetailAction: (heroCode: String) -> Unit
 ) {
 

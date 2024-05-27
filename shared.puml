@@ -1,0 +1,124 @@
+@startuml
+class ResultData {
++ ResultData<T> success(T)
++ ResultData<T> failure(Throwable)
+}
+
+class DeleteMarvelFavouriteCardUseCaseImpl {
++ void invoke(MarvelCardModel)
+}
+
+class MarvelCardModel {
++ MarvelFavouriteCardEntity toEntity()
+}
+
+interface DeleteMarvelFavouriteCardUseCase {
++ void invoke(MarvelCardModel)
+}
+
+class MarvelCardResponse {
+}
+class GetMarvelCardFavoriteListUseCaseImpl {
++ Flow<List<MarvelCardModel>> invoke()
+}
+
+interface AddMarvelFavouriteCardUseCase {
++ void invoke(MarvelCardModel)
+}
+
+interface MarvelCardsDataSource {
++ Result<List<MarvelCardResponse>> getMarvelCardList()
+}
+
+class MarvelCardsCloudDataSourceImpl {
+-  endpoint
++ Result<List<MarvelCardResponse>> getMarvelCardList()
+}
+
+interface MarvelCardRepository {
++ Result<List<MarvelCardResponse>> getMarvelCardList()
++ Flow<List<MarvelFavouriteCardEntity>> getMarvelCardFavoriteList()
++ void addFavouriteCard(MarvelFavouriteCardEntity)
++ void deleteFavouriteCard(MarvelFavouriteCardEntity)
+}
+
+class AddMarvelFavouriteCardUseCaseImpl {
++ void invoke(MarvelCardModel)
+}
+
+class MarvelCardRepositoryImpl {
++ Result<List<MarvelCardResponse>> getMarvelCardList()
++ Flow<List<MarvelFavouriteCardEntity>> getMarvelCardFavoriteList()
++ void addFavouriteCard(MarvelFavouriteCardEntity)
++ void deleteFavouriteCard(MarvelFavouriteCardEntity)
+}
+
+class GetMarvelCardAvengerListUseCaseImpl {
++ ResultData<List<MarvelCardModel>> invoke()
+}
+
+class MarvelFavouriteCardEntity {
++ MarvelCardModel toModel()
+}
+
+interface GetMarvelCardFavoriteListUseCase {
++ Flow<List<MarvelCardModel>> invoke()
+}
+
+class MarvelCardsLocalDataSourceImpl {
++ Flow<List<MarvelFavouriteCardEntity>> getMarvelCardList()
++ void addFavouriteCard(MarvelFavouriteCardEntity)
++ void deleteFavouriteCard(MarvelFavouriteCardEntity)
++ void deleteAll()
+}
+
+interface MarvelFavouriteCardsDataSource {
++ Flow<List<MarvelFavouriteCardEntity>> getMarvelCardList()
++ void addFavouriteCard(MarvelFavouriteCardEntity)
++ void deleteFavouriteCard(MarvelFavouriteCardEntity)
++ void deleteAll()
+}
+
+class ApiClient {
+-  BASE_URL
+-  httpClient
++ Result<T> getApiCall(String)
+}
+
+interface MarvelCardDao {
++ void upsert(MarvelFavouriteCardEntity)
++ void delete(MarvelFavouriteCardEntity)
++ void deleteAll()
++ Flow<List<MarvelFavouriteCardEntity>> getAll()
+}
+
+interface GetMarvelCardListUseCase {
++ ResultData<List<MarvelCardModel>> invoke()
+}
+
+ApiClient <-- MarvelCardsCloudDataSourceImpl
+MarvelCardsDataSource <|.. MarvelCardsCloudDataSourceImpl
+MarvelCardsDataSource <-- MarvelCardResponse
+MarvelFavouriteCardsDataSource <|.. MarvelCardsLocalDataSourceImpl
+MarvelCardDao <-- MarvelCardsLocalDataSourceImpl
+MarvelFavouriteCardEntity <-- MarvelFavouriteCardsDataSource
+MarvelCardRepository <|.. MarvelCardRepositoryImpl
+MarvelCardsCloudDataSourceImpl <-- MarvelCardRepositoryImpl
+MarvelCardsLocalDataSourceImpl <-- MarvelCardRepositoryImpl
+MarvelCardRepository <-- DeleteMarvelFavouriteCardUseCaseImpl
+MarvelCardRepository <-- GetMarvelCardFavoriteListUseCaseImpl
+MarvelCardRepository <-- AddMarvelFavouriteCardUseCaseImpl
+MarvelCardRepository <-- GetMarvelCardAvengerListUseCaseImpl
+DeleteMarvelFavouriteCardUseCase <|.. DeleteMarvelFavouriteCardUseCaseImpl
+GetMarvelCardFavoriteListUseCase <|.. GetMarvelCardFavoriteListUseCaseImpl
+AddMarvelFavouriteCardUseCase <|.. AddMarvelFavouriteCardUseCaseImpl
+GetMarvelCardListUseCase <|.. GetMarvelCardAvengerListUseCaseImpl
+ResultData <-- DeleteMarvelFavouriteCardUseCase
+ResultData <-- GetMarvelCardFavoriteListUseCase
+ResultData <-- AddMarvelFavouriteCardUseCase
+ResultData <-- GetMarvelCardListUseCase
+MarvelCardModel <-- DeleteMarvelFavouriteCardUseCase
+MarvelCardModel <-- GetMarvelCardFavoriteListUseCase
+MarvelCardModel <-- AddMarvelFavouriteCardUseCase
+MarvelCardModel <-- GetMarvelCardListUseCase
+@enduml

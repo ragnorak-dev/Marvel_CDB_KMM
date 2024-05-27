@@ -1,0 +1,54 @@
+@startuml
+allow_mixing
+class MainActivity {
++ void onCreate(Bundle?)
+}
+
+class MarvelCardListViewModel {
+-  _marvelCardList
++ StateFlow<ViewState<SnapshotStateList<MarvelCardModel>>> marvelCardList
++ Flow<List<MarvelCardModel>> marvelCardFavoriteList
++ void getMarvelCardList()
+- void matchingMarvelCardListWithFavouriteList(List<MarvelCardModel>,SnapshotStateList<MarvelCardModel>)
++ void addMarvelFavouriteCard(MarvelCardModel)
++ void deleteMarvelFavouriteCard(MarvelCardModel)
+}
+
+component MarvelApp
+component MarvelHeroesList
+component MarvelHeroDetails
+component FavouritesHeroesView
+component MarvelAppNavHost
+
+class ViewState {
+    object ViewState$Idle
+    object ViewState$Loading
+    class ViewState$Success
+    class ViewState$Error
+}
+class MarvelAppState {
++ String? currentTopLevelDestination
++ Boolean shouldShowBottomBar
++ void navigateTopLevelDestination(String)
+}
+
+
+class Route {
++  HEROES_LIST
++  HERO_DETAILS
++  FAVORITES
+}
+
+MarvelApp <|-- MainActivity
+MarvelAppNavHost <|-- MarvelApp
+MarvelCardListViewModel <|-- MarvelAppNavHost
+MarvelHeroesList <|-- MarvelAppNavHost
+MarvelHeroDetails <|-- MarvelAppNavHost
+FavouritesHeroesView <|-- MarvelAppNavHost
+MarvelAppState <|-- MarvelAppNavHost
+Route <|-- MarvelAppNavHost
+MarvelCardListViewModel <|-- MarvelHeroesList
+ViewState <|-- MarvelHeroesList
+ViewState <|-- MarvelCardListViewModel
+
+@enduml

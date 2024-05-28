@@ -22,6 +22,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ragnorak.components.LoadingComponent
 import com.ragnorak.components.marvel.MarvelHeroCard
 import com.ragnorak.components.marvel.MarvelHeroCompModel
+import com.ragnorak.components.marvel.MarvelHeroLoadingCard
 import com.ragnorak.marvelcdb.android.R
 import com.ragnorak.marvelcdb.domain.models.MarvelCardModel
 import com.ragnorak.marvelcdb.ui.ConstansUiIdentifiers
@@ -68,11 +69,15 @@ fun MarvelHeroesList(
 
 @Composable
 private fun MarvelHeroesListLoading() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = Modifier
+            .fillMaxSize()
     ) {
-        LoadingComponent()
+
+        items(6) {
+            MarvelHeroLoadingCard()
+        }
     }
 }
 

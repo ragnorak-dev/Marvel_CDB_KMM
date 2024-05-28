@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.mocking)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
@@ -22,6 +23,8 @@ android {
     buildFeatures {
         compose = true
     }
+
+    testOptions.execution = "ANDROIDX_TEST_ORCHESTRATOR"
 
     packaging {
         resources {
@@ -65,6 +68,7 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.animation)
     implementation(libs.compose.foundation)
+    implementation(libs.kotlinx.serialization.json)
 
     //Room
     implementation(libs.room.runtime.android)
@@ -85,4 +89,6 @@ dependencies {
     androidTestImplementation(libs.koin.core)
     androidTestImplementation(libs.test.turbine)
     debugImplementation(libs.compose.testing.manifest)
+    androidTestImplementation (libs.androidx.runner)
+    androidTestUtil (libs.androidx.orchestrator)
 }

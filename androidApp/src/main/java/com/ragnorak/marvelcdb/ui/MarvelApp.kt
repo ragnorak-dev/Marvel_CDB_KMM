@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.rememberNavController
 import com.ragnorak.components.foundations.Dimensions
+import com.ragnorak.marvelcdb.ui.navigation.HeroesList
 import com.ragnorak.marvelcdb.ui.navigation.MarvelAppNavHost
 import com.ragnorak.marvelcdb.ui.navigation.Route
 import com.ragnorak.marvelcdb.ui.navigation.getTopDestinations
@@ -37,7 +38,7 @@ fun MarvelApp() {
 
 @Composable
 private fun MarvelBottomAppBar(appState: MarvelAppState) {
-    var selectedDestination by remember { mutableStateOf(Route.HEROES_LIST) }
+    var selectedDestination by remember { mutableStateOf<Route>(HeroesList) }
 
     if (appState.shouldShowBottomBar) {
         NavigationBar(modifier = Modifier.fillMaxWidth()) {

@@ -5,16 +5,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.navigation.NavBackStackEntry
 import com.ragnorak.marvelcdb.android.R
+import kotlinx.serialization.Serializable
 
-object Route {
-    const val HEROES_LIST = "heroesList"
-    const val HERO_DETAILS = "heroDetails"
-    const val FAVORITES = "Favorites"
-}
+interface Route
+
+@Serializable
+object HeroesList : Route
+@Serializable
+data class HeroDetails(val heroCode: String) : Route
+@Serializable
+object Favorites : Route
 
 data class MarvelTopLevelDestination(
-    val route: String,
+    val route: Route,
     val icon: ImageVector,
     val selectedColor: Color,
     val unselectedColor: Color,
@@ -24,14 +29,14 @@ data class MarvelTopLevelDestination(
 @Composable
 fun getTopDestinations() = listOf(
     MarvelTopLevelDestination(
-        route = Route.HEROES_LIST,
+        route = HeroesList,
         icon = ImageVector.vectorResource(id = R.drawable.hero_icon),
         selectedColor = MaterialTheme.colorScheme.primary,
         unselectedColor = MaterialTheme.colorScheme.secondary,
         iconTextId = R.string.menu_heroes
     ),
     MarvelTopLevelDestination(
-        route = Route.FAVORITES,
+        route = Favorites,
         icon =ImageVector.vectorResource(id = R.drawable.favorite_icon),
         selectedColor = MaterialTheme.colorScheme.primary,
         unselectedColor = MaterialTheme.colorScheme.secondary,

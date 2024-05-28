@@ -20,7 +20,10 @@ junit = "4.13.2"
 kotlin = "1.9.23"
 coil = "2.6.0"
 composeBom = "2024.05.00"
+kotlinxSerializationJson = "1.6.3"
 navigationCompose = "2.8.0-beta01"
+orchestrator = "1.4.2"
+runner = "1.5.2"
 uiCompose = "1.7.0-beta01"
 animationCompose = "1.7.0-beta01"
 foundationCompose = "1.7.0-beta01"
@@ -34,6 +37,8 @@ ksp = "1.9.23-1.0.19"
 sqlite = "2.5.0-alpha02"
 
 [libraries]
+androidx-orchestrator = { module = "androidx.test:orchestrator", version.ref = "orchestrator" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "runner" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -64,6 +69,7 @@ compose-testing-manifest = { module = "androidx.compose.ui:ui-test-manifest", ve
 compose-testing-junit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 kotlinx-coroutines-core = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines"}
 kotlinx-coroutines-test = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines"}
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 test-turbine = {module = "app.cash.turbine:turbine", version.ref = "turbine"}
 ktor-client-core = {module = "io.ktor:ktor-client-core", version.ref = "ktor"}
 ktor-client-contentNegotiation = {module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor"}

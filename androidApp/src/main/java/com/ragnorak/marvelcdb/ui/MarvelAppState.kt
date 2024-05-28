@@ -2,11 +2,12 @@ package com.ragnorak.marvelcdb.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
+import com.ragnorak.marvelcdb.ui.navigation.Favorites
+import com.ragnorak.marvelcdb.ui.navigation.HeroesList
 import com.ragnorak.marvelcdb.ui.navigation.Route
 
 @Composable
@@ -16,19 +17,23 @@ fun rememberMarvelAppState(navController: NavHostController) = remember(navContr
 
 class MarvelAppState(val navController: NavHostController) {
 
-    val currentTopLevelDestination: String?
-        get() = navController.currentDestination?.route
 
-
+    /* WorkAround to get the current route safe type,
+    it need to add the Route implementation classes to -keepnames in proguard*/
     val shouldShowBottomBar: Boolean
         @Composable
-        get() = when(navController.currentBackStackEntryAsState().value?.destination?.route) {
-            Route.HEROES_LIST -> true
-            Route.FAVORITES -> true
-            else -> false
-        }
+        get() = navController.currentBackStackEntryAsState().value?.let {
+            val type = it.destination.route
+            when (type?.substringAfterLast(".")?.substringBefore("/")) {
+                HeroesList::class.simpleName -> true
+                Favorites::class.simpleName -> true
+                else -> false
+            }
+        } ?: false
 
-    fun navigateTopLevelDestination(topLevelDestination: String) {
+
+
+    fun navigateTopLevelDestination(topLevelDestination: Route) {
         val topLevelNavOptions = navOptions {
             popUpTo(navController.graph.findStartDestination().id) {
                 saveState = true
@@ -38,8 +43,8 @@ class MarvelAppState(val navController: NavHostController) {
         }
 
         when (topLevelDestination) {
-            Route.HEROES_LIST -> navController.navigate(Route.HEROES_LIST, topLevelNavOptions)
-            Route.FAVORITES -> navController.navigate(Route.FAVORITES, topLevelNavOptions)
+            HeroesList -> navController.navigate(HeroesList, topLevelNavOptions)
+            Favorites -> navController.navigate(Favorites, topLevelNavOptions)
         }
     }
 }

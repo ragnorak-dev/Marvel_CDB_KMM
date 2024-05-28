@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ragnorak.marvelcdb.di.stubCommonModule
 import com.ragnorak.marvelcdb.ui.ConstansUiIdentifiers
+import com.ragnorak.marvelcdb.ui.navigation.HeroesList
 import com.ragnorak.marvelcdb.ui.navigation.Route
 import org.junit.Before
 import org.junit.Rule
@@ -25,7 +26,6 @@ class MarvelHeroesListTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-
     @Before
     @OptIn(ExperimentalSharedTransitionApi::class)
     fun setup() {
@@ -35,9 +35,9 @@ class MarvelHeroesListTest {
             SharedTransitionLayout {
                 NavHost(
                     navController = navController,
-                    startDestination = Route.HEROES_LIST
+                    startDestination = HeroesList
                 ) {
-                    composable(Route.HEROES_LIST) {
+                    composable<HeroesList> {
                         MarvelHeroesList(
                             sharedTransitionScope = this@SharedTransitionLayout,
                             animatedVisibilityScope = this@composable,
@@ -58,7 +58,7 @@ class MarvelHeroesListTest {
     }
 
     @Test
-    fun marvelHeroesList_has_excepted_order() {
+    fun marvelHeroesList_display_ordered() {
         composeTestRule.onAllNodesWithTag(ConstansUiIdentifiers.MARVEL_CARD_LIST)[0].assertTextEquals("Iron Man")
         composeTestRule.onAllNodesWithTag(ConstansUiIdentifiers.MARVEL_CARD_LIST)[1].assertTextEquals("Captain America")
         composeTestRule.onAllNodesWithTag(ConstansUiIdentifiers.MARVEL_CARD_LIST)[2].assertTextEquals("Thor")
@@ -68,5 +68,4 @@ class MarvelHeroesListTest {
     fun marvelHeroesList_no_avengers_traits_are_not_displayed() {
         composeTestRule.onNodeWithText("Wolverine").assertIsNotDisplayed()
     }
-
 }

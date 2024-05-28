@@ -34,7 +34,6 @@ class MarvelHeroDetailsTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-
     @Before
     fun setup() {
         loadKoinModules(stubCommonModule)

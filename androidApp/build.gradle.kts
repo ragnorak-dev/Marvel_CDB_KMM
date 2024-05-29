@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android)
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.mocking)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -40,12 +40,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotlin.compiler.get()
-    }
+
     kotlinOptions {
         jvmTarget = libs.versions.java.get()
     }
+
     buildToolsVersion = libs.versions.android.buildTool.get()
 }
 

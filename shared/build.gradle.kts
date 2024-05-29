@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.mocking)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)

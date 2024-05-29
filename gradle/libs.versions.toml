@@ -1,11 +1,10 @@
 [versions]
-agp = "8.2.0"
+agp = "8.2.2"
 java = "17"
 android-compileSdk = "34"
 android-minSdk = "26"
 android-targetSdk = "34"
 android-buildTool = "34.0.0"
-kotlin-compiler = "1.5.14"
 androidx-activityCompose = "1.9.0"
 androidx-appcompat = "1.6.1"
 androidx-constraintlayout = "2.1.4"
@@ -15,9 +14,8 @@ androidx-material = "1.12.0"
 androidx-test-junit = "1.1.5"
 koin = "3.5.0"
 compose = "1.6.7"
-compose-plugin = "1.6.2"
 junit = "4.13.2"
-kotlin = "1.9.23"
+kotlin = "2.0.0"
 coil = "2.6.0"
 composeBom = "2024.05.00"
 kotlinxSerializationJson = "1.6.3"
@@ -31,9 +29,9 @@ lifecycleViewModelCompose = "2.8.0"
 coroutines = "1.8.1"
 turbine = "1.1.0"
 ktor = "2.3.11"
-mock = "1.9.23-1.7.0"
-room = "2.7.0-alpha01"
-ksp = "1.9.23-1.0.19"
+mock = "2.0.0-RC1"
+room = "2.7.0-alpha02"
+ksp = "2.0.0-1.0.21"
 sqlite = "2.5.0-alpha02"
 
 [libraries]
@@ -87,7 +85,7 @@ sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sql
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 mocking = { id = "dev.mokkery", version.ref = "mock" }

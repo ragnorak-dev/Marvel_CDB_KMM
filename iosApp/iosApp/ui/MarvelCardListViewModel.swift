@@ -1,53 +1,72 @@
-//
-//  MarvelCardListViewModel.swift
-//  iosApp
-//
-//  Created by Raul Illan on 5/6/23.
-//  Copyright © 2023 orgName. All rights reserved.
-//
-
 import Foundation
 import shared
-import Combine
 
-class MarvelCardListViewModel: ObservableObject {
-    @Published var marvelList: [MarvelCardModel] = []
+@MainActor
+class MarvelViewModel: ObservableObject {
 
-    @Published public private(set) var loaded = false
+    enum LoadState { case idle, loading, error(String) }
 
-    private var cancellable: AnyCancellable?
-    
-    let marvelCardListUseCase: GetMarvelCardListUseCase
+    @Published var heroes: [MarvelCardModel] = []
+    @Published var favorites: [MarvelCardModel] = []
+    @Published var loadState: LoadState = .idle
 
-    init(charactersListUseCase: GetMarvelCardListUseCase = GetMarvelCardListUseCaseHelper.getMarvelCardListUseCase(GetMarvelCardListUseCaseHelper())()) {
-        self.marvelCardListUseCase = charactersListUseCase
+    private let provider = MarvelUseCaseProvider()
+    private var favoritesTask: Task<Void, Never>?
+
+    var favoriteCodes: Set<String> { Set(favorites.map { $0.code }) }
+
+    func isFavorite(_ hero: MarvelCardModel) -> Bool {
+        favoriteCodes.contains(hero.code)
+    }
+
+    // MARK: - Load heroes list (SKIE bridges suspend → async throws)
+
+    func loadHeroes() async {
+        guard case .idle = loadState, heroes.isEmpty else { return }
+        loadState = .loading
+        do {
+            let result = try await provider.marvelCardListUseCase.invoke()
+            result.onSuccess { [weak self] value in
+                self?.heroes = (value as? [MarvelCardModel]) ?? []
+                self?.loadState = .idle
+            }.onFailure { [weak self] error in
+                self?.loadState = .error(error.message ?? "Failed to load heroes")
+            }
+        } catch {
+            loadState = .error(error.localizedDescription)
         }
+    }
 
-    func getMarvelCardList() {
-       cancellable = Future<[MarvelCardModel], Error> { promise in
-           self.marvelCardListUseCase.execute { resultDataKt, error in
-               resultDataKt?.onSuccess(action: { marverCardList in
-                   promise(.success(marverCardList as? [MarvelCardModel] ?? []))
-               })
-               
-               resultDataKt?.onFailure(action: { nserror in
-                   promise(.failure(nserror as! Error))
-               })
-           }
-           }.eraseToAnyPublisher()
-           .receive(on: DispatchQueue.main)
-           .sink { result in
-                           
-               self.loaded = true
-               
-               switch result {
-               case .failure (let error) :
-                   print(error.localizedDescription)
-               default:
-                   break
-               }
-           } receiveValue: { (data: [MarvelCardModel]) in
-                   self.marvelList = data
-           }
+    // MARK: - Observe favorites Flow (SKIE bridges Flow → SkieSwiftFlow → AsyncSequence)
+
+    func startObservingFavorites() {
+        favoritesTask?.cancel()
+        favoritesTask = Task {
+            for await favList in provider.favoriteFlow {
+                if Task.isCancelled { break }
+                favorites = favList as? [MarvelCardModel] ?? []
+            }
+        }
+    }
+
+    func stopObservingFavorites() {
+        favoritesTask?.cancel()
+        favoritesTask = nil
+    }
+
+    // MARK: - Favorite toggle
+
+    func toggleFavorite(_ hero: MarvelCardModel) {
+        Task {
+            if isFavorite(hero) {
+                try? await provider.deleteFavoriteUseCase.invoke(marvelCardModel: hero)
+            } else {
+                try? await provider.addFavoriteUseCase.invoke(marvelCardModel: hero)
+            }
+        }
+    }
+
+    deinit {
+        favoritesTask?.cancel()
     }
 }

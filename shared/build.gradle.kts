@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.androidKmpLibrary)
+    alias(libs.plugins.skie)
     alias(libs.plugins.mocking)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
@@ -11,12 +12,10 @@ plugins {
 kotlin {
     applyDefaultHierarchyTemplate()
 
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = libs.versions.java.get()
-            }
-        }
+    androidLibrary {
+        namespace = "com.ragnorak.marvelcdb"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     listOf(
@@ -42,11 +41,11 @@ kotlin {
             api(project.dependencies.platform(libs.koin.bom))
             api(libs.koin.core)
             api(libs.koin.test)
-
         }
 
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation(libs.ktor.client.test)
         }
 
         androidMain.dependencies {
@@ -60,25 +59,19 @@ kotlin {
     }
 }
 
-android {
-    namespace = "com.ragnorak.marvelcdb"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    buildToolsVersion = libs.versions.android.buildTool.get()
-}
-
 room {
     schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
-    testImplementation(libs.ktor.client.test)
-    ksp(libs.room.compiler)
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+}

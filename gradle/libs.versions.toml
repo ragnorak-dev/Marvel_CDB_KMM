@@ -1,38 +1,39 @@
 [versions]
-agp = "8.2.2"
+agp = "9.1.0"
 java = "17"
-android-compileSdk = "34"
+android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "34"
 android-buildTool = "34.0.0"
-androidx-activityCompose = "1.9.0"
-androidx-appcompat = "1.6.1"
-androidx-constraintlayout = "2.1.4"
-androidx-core-ktx = "1.13.1"
-androidx-espresso-core = "3.5.1"
-androidx-material = "1.12.0"
-androidx-test-junit = "1.1.5"
-koin = "3.5.0"
-compose = "1.6.7"
+androidx-activityCompose = "1.13.0"
+androidx-appcompat = "1.7.1"
+androidx-constraintlayout = "2.2.1"
+androidx-core-ktx = "1.18.0"
+androidx-espresso-core = "3.7.0"
+androidx-material = "1.13.0"
+androidx-test-junit = "1.3.0"
+koin = "4.2.0"
+compose = "1.10.6"
 junit = "4.13.2"
-kotlin = "2.0.0"
-coil = "2.6.0"
-composeBom = "2024.05.00"
-kotlinxSerializationJson = "1.6.3"
-navigationCompose = "2.8.0-beta01"
-orchestrator = "1.4.2"
-runner = "1.5.2"
-uiCompose = "1.7.0-beta01"
-animationCompose = "1.7.0-beta01"
-foundationCompose = "1.7.0-beta01"
-lifecycleViewModelCompose = "2.8.0"
-coroutines = "1.8.1"
-turbine = "1.1.0"
-ktor = "2.3.11"
-mock = "2.0.0-RC1"
-room = "2.7.0-alpha02"
-ksp = "2.0.0-1.0.21"
-sqlite = "2.5.0-alpha02"
+kotlin = "2.3.10"
+skie = "0.10.10"
+coil = "2.7.0"
+composeBom = "2026.03.01"
+kotlinxSerializationJson = "1.10.0"
+navigationCompose = "2.9.7"
+orchestrator = "1.6.1"
+runner = "1.7.0"
+uiCompose = "1.10.6"
+animationCompose = "1.10.6"
+foundationCompose = "1.10.6"
+lifecycleViewModelCompose = "2.10.0"
+coroutines = "1.10.2"
+turbine = "1.2.1"
+ktor = "3.4.1"
+mock = "3.3.0"
+room = "2.8.4"
+ksp = "2.3.3"
+sqlite = "2.6.2"
 
 [libraries]
 androidx-orchestrator = { module = "androidx.test:orchestrator", version.ref = "orchestrator" }
@@ -84,6 +85,7 @@ sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sql
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
+androidKmpLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -91,3 +93,4 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 mocking = { id = "dev.mokkery", version.ref = "mock" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+skie = { id = "co.touchlab.skie", version.ref = "skie" }

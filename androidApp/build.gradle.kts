@@ -1,5 +1,4 @@
 plugins {
-    alias(libs.plugins.android)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.mocking)
     alias(libs.plugins.kotlinSerialization)
@@ -41,8 +40,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = libs.versions.java.get()
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(libs.versions.java.get()))
+        }
     }
 
     buildToolsVersion = libs.versions.android.buildTool.get()
